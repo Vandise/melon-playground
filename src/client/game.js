@@ -1,8 +1,14 @@
+import Resources from './resources';
+import Player from './player';
+import Enemy from './enemy';
+import PlayScreen from './screens/play';
+
 class Game {
   constructor() {
-    this.data = {
-      score : 666,
-    };
+    this.PlayScreen = PlayScreen;
+    this.Resources = Resources;
+    this.Player = Player;
+    this.Enemy = Enemy;
   }
 };
 

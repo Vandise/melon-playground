@@ -1,11 +1,10 @@
 import game from './client/game';
-import PlayScreen from './client/screens/play';
 
 class Bootstrap {
 
   constructor() {
     // Initialize the video.
-    if (!me.video.init(1024, 768, {wrapper : "screen", scale : "auto"})) {
+    if (!me.video.init(640, 480, {wrapper : "screen", scale : 'auto'})) {
       alert("Your browser does not support HTML5 canvas.");
       return;
     }
@@ -24,18 +23,20 @@ class Bootstrap {
     me.loader.onload = this.loaded.bind(this);
     
     // Load the resources.
-    me.loader.preload({});
+    me.loader.preload(game.Resources);
     
     // Initialize melonJS and display a loading screen.
     me.state.change(me.state.LOADING);
   }
 
   loaded() {
-    me.state.set(me.state.PLAY, new PlayScreen());
-    
-    // add our player entity in the entity pool
-    // me.pool.register("mainPlayer", PlayerEntity);
-    
+
+    me.pool.register("player", game.Player);
+    me.pool.register("enemy", game.Enemy);
+
+    this.playScreen = new game.PlayScreen();
+    me.state.set(me.state.PLAY, this.playScreen);
+
     // Start the game.
     me.state.change(me.state.PLAY);     
   }
