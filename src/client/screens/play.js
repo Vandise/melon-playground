@@ -3,7 +3,8 @@ import Game from '../game';
 class PlayScreen extends me.ScreenObject {
 
   onResetEvent() {
-    me.game.world.addChild(me.pool.pull("player"));
+    this.player = me.pool.pull("player");
+    me.game.world.addChild(this.player, 1);
     //me.game.world.addChild(me.pool.pull("enemy", 50, 50), 2);
     me.game.world.addChild(new me.ColorLayer("background", "#000", 0), 0);  
 
@@ -27,6 +28,12 @@ class PlayScreen extends me.ScreenObject {
     me.input.unbindKey(me.input.KEY.A);
     me.input.unbindKey(me.input.KEY.D);
     me.input.unbindKey(me.input.KEY.SPACE); 
+  }
+
+  checkIfLoss(y) {
+    if (y >= this.player.pos.y) {
+      this.reset();
+    }
   }
 
 };
