@@ -20,7 +20,7 @@ export default class Enemy extends me.Entity {
   }
 
   update(dt) {
-    //this._super(me.Entity, "update", [dt]);
+    this._super(me.Entity, "update", [dt]);
     return true;
   }
 

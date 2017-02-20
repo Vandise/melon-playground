@@ -1,3 +1,6 @@
+
+import { LASER_WIDTH, LASER_HEIGHT } from './game';
+
 const DEFAULT_PLAYER_IMAGE = 'player';
 export default class Player extends me.Sprite{
 
@@ -17,6 +20,10 @@ export default class Player extends me.Sprite{
 
     if (me.input.isKeyPressed("right")) {
       this.pos.x += this.velx * time / 1000;
+    }
+
+    if (me.input.isKeyPressed("shoot")) {
+      me.game.world.addChild(me.pool.pull("laser", this.pos.x - LASER_WIDTH, this.pos.y - LASER_HEIGHT));
     }
 
     this.pos.x = this.pos.x.clamp(0, this.maxX);
