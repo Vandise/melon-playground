@@ -8,17 +8,15 @@ import PlayScreen from './screens/play';
 export const LASER_WIDTH = 5;
 export const LASER_HEIGHT = 28;
 
-class Game {
+const playScreen = new PlayScreen();
 
-  constructor() {
-    this.PlayScreen = PlayScreen;
-    this.Resources = Resources;
-    this.Player = Player;
-    this.Enemy = Enemy;
-    this.EnemyManager = EnemyManager;
-    this.Laser = Laser;
-  }
-
+export const settings = {
+  PlayScreen: playScreen,
+  Resources,
+  Player,
+  Enemy,
+  EnemyManager,
+  Laser
 };
 
-export default new Game();
+export default settings;

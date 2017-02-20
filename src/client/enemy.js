@@ -10,6 +10,8 @@ export default class Enemy extends me.Entity {
       width: WIDTH_HEIGHT,
       height: WIDTH_HEIGHT
     });
+    this.body.setVelocity(0, 0);
+    this.body.collisionType = me.collision.types.ENEMY_OBJECT;
     this.chooseShipImage();
   }
 
@@ -21,6 +23,7 @@ export default class Enemy extends me.Entity {
 
   update(dt) {
     this._super(me.Entity, "update", [dt]);
+    this.body.update();
     return true;
   }
 

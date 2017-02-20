@@ -35,7 +35,7 @@ class Bootstrap {
     me.pool.register("enemy", game.Enemy);
     me.pool.register("laser", game.Laser);
 
-    this.playScreen = new game.PlayScreen();
+    this.playScreen = game.PlayScreen;
     me.state.set(me.state.PLAY, this.playScreen);
 
     // Start the game.

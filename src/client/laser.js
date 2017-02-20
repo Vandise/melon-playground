@@ -1,4 +1,4 @@
-import { LASER_WIDTH, LASER_HEIGHT } from './game';
+import { settings, LASER_WIDTH, LASER_HEIGHT } from './game';
 
 const Bullet = class extends me.Renderable {
 
@@ -31,6 +31,13 @@ export default class Laser extends me.Entity {
     this.body.collisionType = me.collision.types.PROJECTILE_OBJECT;
     this.renderable = new Bullet();
     this.alwaysUpdate = true;
+  }
+
+  onCollision(res, other) {
+    if (other.body.collisionType === me.collision.types.ENEMY_OBJECT) {
+      me.game.world.removeChild(this);
+      settings.PlayScreen.enemyManager.removeChild(other);
+    }
   }
 
   update(time) {
