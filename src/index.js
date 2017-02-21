@@ -24,17 +24,19 @@ class Bootstrap {
     me.loader.onload = this.loaded.bind(this);
 
     // Load the resources.
-    me.loader.preload({});
+    me.loader.preload(game.resources);
 
     // Initialize melonJS and display a loading screen.
     me.state.change(me.state.LOADING);
   }
 
   loaded() {
-    me.state.set(me.state.PLAY, new PlayScreen());
+    me.state.set(me.state.PLAY, game.getScreenInstance('PlayScreen'));
 
     // add our player entity in the entity pool
-    // me.pool.register("mainPlayer", PlayerEntity);
+    Object.keys(game.references.entities).forEach((name) => {
+      me.pool.register(name, game.references.entities[name]);
+    });
 
     // Start the game.
     me.state.change(me.state.PLAY);

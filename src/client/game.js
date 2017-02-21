@@ -1,13 +1,17 @@
+import PlayScreen from './screens/play';
+import Wanderer from './entities/wanderer';
+import resources from './resources';
+
 class Game {
 
   constructor() {
     this.resources = resources;
     this.references = {
       screens: {
-
+        PlayScreen,
       },
       entities: {
-
+        Wanderer,
       },
       containers: {
 
