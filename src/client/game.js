@@ -1,9 +1,36 @@
 class Game {
+
   constructor() {
-    this.data = {
-      score : 666,
+    this.resources = resources;
+    this.references = {
+      screens: {
+
+      },
+      entities: {
+
+      },
+      containers: {
+
+      },
     };
+    this.instances = {
+      screens: {},
+      entities: {},
+      containers: {},
+    };
+    this.data = {};
   }
+
+  getScreenInstance(instanceName) {
+    const instance = this.instances.screens[instanceName];
+    if (!instance) {
+      this.instances.screens[instanceName] = new this.references.screens[instanceName]();
+    }
+    return this.instances.screens[instanceName];
+  }
+
 };
 
-export default new Game();
+const game = new Game();
+
+export default game;
