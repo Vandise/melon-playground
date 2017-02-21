@@ -10,22 +10,22 @@ export default [
     "type": "audio"
   },
   {
-    "name": "fnt/PressStart2P",
+    "name": "PressStart2P",
     "src": "/data/fnt/PressStart2P.fnt",
     "type": "binary"
   },
   {
-    "name": "fnt/PressStart2P",
+    "name": "PressStart2P",
     "src": "/data/fnt/PressStart2P.ltr",
     "type": "binary"
   },
   {
-    "name": "fnt/PressStart2P",
+    "name": "PressStart2P",
     "src": "/data/fnt/PressStart2P.png",
     "type": "image"
   },
   {
-    "name": "fnt/PressStart2P",
+    "name": "PressStart2P",
     "src": "/data/fnt/PressStart2P.ttf",
     "type": "binary"
   },
@@ -40,7 +40,7 @@ export default [
     "type": "image"
   },
   {
-    "name": "img/gui/title_screen",
+    "name": "title_screen",
     "src": "/data/img/gui/title_screen.png",
     "type": "image"
   },
@@ -65,12 +65,12 @@ export default [
     "type": "image"
   },
   {
-    "name": "map/area01",
+    "name": "area01",
     "src": "/data/map/area01.tmx",
     "type": "tmx"
   },
   {
-    "name": "map/area02",
+    "name": "area02",
     "src": "/data/map/area02.tmx",
     "type": "tmx"
   },

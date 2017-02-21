@@ -3,7 +3,7 @@ import game from '../game';
 class PlayScreen extends me.ScreenObject {
 
   onResetEvent() {
-    me.levelDirector.loadLevel('map/area01');
+    me.levelDirector.loadLevel('area01');
     game.data.score = 0;
 
     this.HUD = new game.references.containers.HUD.Container();

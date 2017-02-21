@@ -34,9 +34,10 @@ var walkSync = function(dir, filelist) {
       filelist = walkSync(dir + file + '/', filelist);
     } else {
       if (ignoreFiles.indexOf(file) < 0) {
+        var fileName = file;
         var src = dir.replace(resourcesPath, '') + file;
         var file = {};
-        var fragments = src.split('.');
+        var fragments = fileName.split('.');
         file['name'] = fragments[0];
         file['src'] = staticResourceDir + src;
         Object.keys(melontypes).some(function(type) {
