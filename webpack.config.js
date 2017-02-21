@@ -2,19 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var WebpackPreBuildPlugin = require('pre-build-webpack');
-
-var staticResourceDir = '/data/';
-var ignoreFiles = ['.DS_Store'];
-var resourcesPath = './src/static/data/';
-var resourcesFile = './src/client/resources.json';
-
-var melontypes = {
-  image: ['png', 'jpg', 'jpeg'],
-  binary: ['fnt', 'ltr', 'ttf'],
-  tmx: ['tmx'],
-  audio: ['mp3', 'ogg']
-};
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = {
   entry: [
@@ -32,39 +20,8 @@ module.exports = {
     modulesDirectories: ['node_modules']
   },
   plugins: [
-    new WebpackPreBuildPlugin(function(stats) {
-      var walkSync = function(dir, filelist) {
-        var fs = fs || require('fs'),
-        files = fs.readdirSync(dir);
-        filelist = filelist || [];
-        files.forEach(function(file) {
-          if (fs.statSync(dir + '/' + file).isDirectory()) {
-            filelist = walkSync(dir + file + '/', filelist);
-          } else {
-            if (ignoreFiles.indexOf(file) < 0) {
-              var src = dir.replace(resourcesPath, '') + file;
-              var file = {};
-              var fragments = src.split('.');
-              file['name'] = fragments[0];
-              file['src'] = staticResourceDir + src;
-              Object.keys(melontypes).some(function(type) {
-                if (melontypes[type].indexOf(fragments[1]) >= 0) {
-                  file['type'] = type;
-                  return true;
-                }
-                return false;
-              });
-              filelist.push(file);
-            }
-          }
-        });
-        return filelist;
-      };
-      var data = walkSync(resourcesPath);
-      var file = fs.createWriteStream(resourcesFile);
-      console.log("Exporting resources to: " + resourcesFile);
-      file.write(JSON.stringify(data, null, '  '));
-      file.end();
+    new WebpackShellPlugin({
+      onBuildStart:['node webpack/generateResources.js']
     }),
     new CopyWebpackPlugin([
       { from: './src/static/', to: path.join(__dirname, "public")},
