@@ -5,7 +5,7 @@ class Bootstrap {
 
   constructor() {
     // Initialize the video.
-    if (!me.video.init(1024, 768, {wrapper : "screen", scale : "auto"})) {
+    if (!me.video.init(800, 600, {wrapper : "screen", scale : "none"})) {
       alert("Your browser does not support HTML5 canvas.");
       return;
     }
@@ -46,6 +46,7 @@ class Bootstrap {
     var bootstrap = new Bootstrap();
 
     // Mobile browser hacks
+    /*
     if (me.device.isMobile && !navigator.isCocoonJS) {
       // Prevent the webview from moving on a swipe
       window.document.addEventListener("touchmove", function (e) {
@@ -64,6 +65,7 @@ class Bootstrap {
         window.scrollTo(0, 1);
       });
     }
+    */
 
     return bootstrap;
   }
