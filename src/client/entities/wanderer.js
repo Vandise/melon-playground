@@ -78,36 +78,6 @@ export default class Wanderer extends me.Entity {
     let velX = WANDER_SPEED * (run/distance);
     let velY = WANDER_SPEED * (rise/distance);
 
-    // anywhere on the map decreasing X coordinate (left)
-    if (playerX > x) {
-      velX = 0 - Math.abs(velX);
-
-    // hit the left boundary move (right)
-    } else if (playerX <= SPRITE_DIMENSIONS + 20) {
-      velX = Math.abs(velX);
-
-    // hit the right boundary move (left)
-    } else if (playerX >= this.worldWidth - (SPRITE_DIMENSIONS + 20)) {
-      velX = 0 - Math.abs(velX);
-    } else if (playerX < x) {
-      velX = Math.abs(velX);
-    }
-
-    // anywhere on the map decreasing Y coordinate (up)
-    if (playerY > y) {
-      velY = 0 - Math.abs(velY);
-
-    // hit the top boundary move (up)
-    } else if (playerY <= SPRITE_DIMENSIONS + 20) {
-      velY = Math.abs(velY);
-
-    // hit the bottom boundary move (up)
-    } else if (playerY >= this.wordHeight - (SPRITE_DIMENSIONS + 20)) {
-      velY = 0 - Math.abs(velY);
-    } else if (playerY < y){
-      velY = Math.abs(velY);
-    }
-
     this.body.vel.x = velX;
     this.body.vel.y = velY;
 
@@ -147,8 +117,8 @@ export default class Wanderer extends me.Entity {
 
   outSideWorldBounds(x, y) {
     return {
-      x : (x < 0)  ? x *= -1 : x,
-      y : (y < 0) ? y *= -1 : y
+      x : (x < 0 || x > this.worldWidth -  (SPRITE_DIMENSIONS + 20)) ? x *= -1 : x,
+      y : (y < 0 || y > this.worldHeight - (SPRITE_DIMENSIONS + 20)) ? y *= -1 : y
     };
   }
 
