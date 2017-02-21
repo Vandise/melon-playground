@@ -1,6 +1,10 @@
 import resources from './resources';
 import PlayScreen from './screens/play';
 import TitleScreen from './screens/title';
+import HUD from './containers/hud';
+import Player from './entities/player';
+import CoinEntity from './entities/coinEntity';
+import EnemyEntity from './entities/enemyEntity';
 
 class Game {
 
@@ -11,13 +15,21 @@ class Game {
         PlayScreen,
         TitleScreen,
       },
-      entities: {},
+      entities: {
+        Player,
+        CoinEntity,
+        EnemyEntity
+      },
+      containers: {
+        HUD,
+      },
     };
     this.instances = {
       screens: {},
       entities: {},
+      containers: {},
     };
-    this.gameProperties = {
+    this.data = {
       score: 0,
     };
   }

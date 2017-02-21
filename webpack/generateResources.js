@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 var staticResourceDir = '/data/';
-var ignoreFiles = ['.DS_Store', 'license.txt'];
+var ignoreFiles = ['.DS_Store', 'license.txt', 'LICENSE.txt'];
 var resourcesPath = './src/static/data/';
 var resourcesFile = './src/client/resources.js';
 

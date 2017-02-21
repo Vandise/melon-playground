@@ -33,15 +33,17 @@ class Bootstrap {
   loaded() {
     me.state.set(me.state.PLAY, game.getScreenInstance('PlayScreen'));
 
-    // add our player entity in the entity pool
-    // me.pool.register("mainPlayer", PlayerEntity);
+    // add all out entities
+    Object.keys(game.references.entities).forEach((name) => {
+      me.pool.register(name, game.references.entities[name]);
+    });
 
     // Start the game.
     me.state.change(me.state.PLAY);
   }
 
   static boot() {
-    var bootstrap = new Bootstrap();
+    const bootstrap = new Bootstrap();
 
     // Mobile browser hacks
     if (me.device.isMobile && !navigator.isCocoonJS) {

@@ -30,12 +30,12 @@ export default [
     "type": "binary"
   },
   {
-    "name": "img/area01_bkg0",
+    "name": "area01_bkg0",
     "src": "/data/img/area01_bkg0.png",
     "type": "image"
   },
   {
-    "name": "img/area01_bkg1",
+    "name": "area01_bkg1",
     "src": "/data/img/area01_bkg1.png",
     "type": "image"
   },
@@ -45,26 +45,36 @@ export default [
     "type": "image"
   },
   {
-    "name": "img/map/area01_level_tiles",
+    "name": "area01_level_tiles",
     "src": "/data/img/map/area01_level_tiles.png",
     "type": "image"
   },
   {
-    "name": "img/sprite/gripe_run_right",
+    "name": "gripe_run_right",
     "src": "/data/img/sprite/gripe_run_right.png",
     "type": "image"
   },
   {
-    "name": "img/sprite/spinning_coin_gold",
+    "name": "spinning_coin_gold",
     "src": "/data/img/sprite/spinning_coin_gold.png",
     "type": "image"
   },
   {
-    "name": "img/sprite/wheelie_right",
+    "name": "wheelie_right",
     "src": "/data/img/sprite/wheelie_right.png",
     "type": "image"
   },
   {
+    "name": "map/area01",
+    "src": "/data/map/area01.tmx",
+    "type": "tmx"
+  },
+  {
+    "name": "map/area02",
+    "src": "/data/map/area02.tmx",
+    "type": "tmx"
+  },
+  {
     "name": "cling",
     "src": "/data/sfx/",
     "type": "audio"
@@ -83,6 +93,21 @@ export default [
     "name": "jump",
     "src": "/data/sfx/",
     "type": "audio"
+  },
+  {
+    "name": "gripe_run_right",
+    "src": "/data/sfx/sprite/gripe_run_right.png",
+    "type": "image"
+  },
+  {
+    "name": "spinning_coin_gold",
+    "src": "/data/sfx/sprite/spinning_coin_gold.png",
+    "type": "image"
+  },
+  {
+    "name": "wheelie_right",
+    "src": "/data/sfx/sprite/wheelie_right.png",
+    "type": "image"
   },
   {
     "name": "stomp",
