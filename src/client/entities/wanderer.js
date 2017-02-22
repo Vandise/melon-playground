@@ -1,6 +1,6 @@
 const DEAFULT_IMAGE = 'badGuy';
 const SPRITE_DIMENSIONS = 45;
-const WANDER_SPEED = 0.7;
+const WANDER_SPEED = 0.5;
 
 export default class Wanderer extends me.Entity {
 
@@ -29,37 +29,35 @@ export default class Wanderer extends me.Entity {
   }
 
   update(dt) {
-    if(Math.floor(Math.random() * 20) === 0) {
+    if(Math.floor(Math.random() * 40) === 0) {
       this.updateHeading();
     }
 
     let coord = null;
     if (coord = this.movementStack.pop()) {
-
-      // change direction to coord x/y
-      this.moveTo(coord.x, coord.y);
       const dx = coord.x - this.pos.x;
       const dy = coord.y - this.pos.y;
       this.rotation = Math.atan2(dy, dx);
+      // change direction to coord x/y
+      this.moveTo(coord.x, coord.y, this.rotation);
       this.body.update(dt);
       return true;
     } else {
-
+      //this.updateHeading();
+      /*
       // change direction to heading x/y
-      this.moveTo(this.heading.x, this.heading.y);
       const dx = this.heading.x - this.pos.x;
       const dy = this.heading.y - this.pos.y;
 
       this.rotation = Math.atan2(dy, dx);
+      this.moveTo(this.heading.x, this.heading.y, this.rotation);
+
       this.body.update(dt);
       return true;
+      */
     }
 
     return false;
-  }
-
-  onCollision(response, other) {
-
   }
 
   /*
@@ -68,23 +66,42 @@ export default class Wanderer extends me.Entity {
 
   */
 
-  moveTo(x, y) {
+  moveTo(x, y, angle) {
+
+    const angleDeg = angle * (180/Math.PI);
     const playerX = this.pos.x;
     const playerY = this.pos.y;
     const rise = playerX - x;
     const run = playerY - y;
-    const distance = Math.sqrt((rise*rise) + (run*run));
+    const mag = Math.sqrt((rise*rise) + (run*run));
 
-    let velX = WANDER_SPEED * (run/distance);
-    let velY = WANDER_SPEED * (rise/distance);
+    let velX = Math.abs(WANDER_SPEED * (run/mag));
+    let velY = Math.abs(WANDER_SPEED * (rise/mag));
+    if (angleDeg > 0) {
+      if (angleDeg > 90 && angleDeg < 180) {
+        // move down(pos y) and to the left(neg x)
+        velX = 0 - velX;
+      } else {
+        // down(pos y) and to the right(pos x)
+      }
+    } else {
+      if (angleDeg < 0 && angleDeg > -90) {
+        // up(neg y) and to the right (pos x)
+        velY = 0 - velY;
+      } else {
+        // up(neg y) and to the left (neg x)
+        velY = 0 - velY;
+        velX = 0 - velX;
+      }
+    }
 
     this.body.vel.x = velX;
     this.body.vel.y = velY;
-
+/*
     console.log("Velocity:", this.body.vel.x, this.body.vel.y);
     console.log("Position:", playerX, playerY);
-    console.log("Move: ", x, y, distance, (run/distance), (rise/distance));
-
+    console.log("Move: ", x, y, mag, (run/mag), (rise/mag));
+*/
   }
 
   updateHeading() {
@@ -103,7 +120,7 @@ export default class Wanderer extends me.Entity {
     const sanitised = this.outSideWorldBounds(newX, newY);
     _self.heading = {
       x: sanitised.x,
-      y: sanitised.y
+      y: sanitised.y,
     };
     _self.movementStack = [];
 
@@ -127,7 +144,7 @@ export default class Wanderer extends me.Entity {
     const dy = first.y + (second.y - first.y) * fraction;
     return {
       x: dx,
-      y: dy
+      y: dy,
     };
   }
 
