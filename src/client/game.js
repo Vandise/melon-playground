@@ -1,3 +1,6 @@
+import Player from './entities/player';
+import resources from './resources';
+
 class Game {
 
   constructor() {
@@ -7,7 +10,7 @@ class Game {
 
       },
       entities: {
-
+        Player,
       },
       containers: {
 
