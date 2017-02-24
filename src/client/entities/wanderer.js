@@ -10,6 +10,7 @@ export default class Wanderer extends me.Entity {
       width: SPRITE_DIMENSIONS,
       height: SPRITE_DIMENSIONS,
     });
+    this.movingToPosition = false;
     this.body.gravity = 0;
     this.body.collisionType = me.collision.types.WANDERER;
 
@@ -29,35 +30,20 @@ export default class Wanderer extends me.Entity {
   }
 
   update(dt) {
-    if(Math.floor(Math.random() * 40) === 0) {
+
+    if(Math.floor(Math.random() * 20) === 0) {
       this.updateHeading();
     }
 
     let coord = null;
     if (coord = this.movementStack.pop()) {
-      const dx = coord.x - this.pos.x;
-      const dy = coord.y - this.pos.y;
-      this.rotation = Math.atan2(dy, dx);
-      // change direction to coord x/y
-      this.moveTo(coord.x, coord.y, this.rotation);
-      this.body.update(dt);
-      return true;
+      this.moveToXY(coord.x, coord.y);
     } else {
-      //this.updateHeading();
-      /*
-      // change direction to heading x/y
-      const dx = this.heading.x - this.pos.x;
-      const dy = this.heading.y - this.pos.y;
-
-      this.rotation = Math.atan2(dy, dx);
-      this.moveTo(this.heading.x, this.heading.y, this.rotation);
-
-      this.body.update(dt);
-      return true;
-      */
+      this.moveToXY(this.currentHeading.x, this.currentHeading.y);
     }
 
-    return false;
+    this.body.update(dt);
+    return true;
   }
 
   /*
@@ -66,48 +52,27 @@ export default class Wanderer extends me.Entity {
 
   */
 
-  moveTo(x, y, angle) {
+  moveToXY(x, y) {
+    const speed = 1;
+    const angle = Math.atan2(y - this.pos.y, x - this.pos.x);
 
-    const angleDeg = angle * (180/Math.PI);
-    const playerX = this.pos.x;
-    const playerY = this.pos.y;
-    const rise = playerX - x;
-    const run = playerY - y;
-    const mag = Math.sqrt((rise*rise) + (run*run));
+    this.body.vel.x = Math.cos(angle) * speed;
+    this.body.vel.y = Math.sin(angle) * speed;
 
-    let velX = Math.abs(WANDER_SPEED * (run/mag));
-    let velY = Math.abs(WANDER_SPEED * (rise/mag));
-    if (angleDeg > 0) {
-      if (angleDeg > 90 && angleDeg < 180) {
-        // move down(pos y) and to the left(neg x)
-        velX = 0 - velX;
-      } else {
-        // down(pos y) and to the right(pos x)
-      }
-    } else {
-      if (angleDeg < 0 && angleDeg > -90) {
-        // up(neg y) and to the right (pos x)
-        velY = 0 - velY;
-      } else {
-        // up(neg y) and to the left (neg x)
-        velY = 0 - velY;
-        velX = 0 - velX;
-      }
-    }
+    this.movingToPosition = true;
 
-    this.body.vel.x = velX;
-    this.body.vel.y = velY;
-/*
-    console.log("Velocity:", this.body.vel.x, this.body.vel.y);
-    console.log("Position:", playerX, playerY);
-    console.log("Move: ", x, y, mag, (run/mag), (rise/mag));
-*/
+  }
+
+  distanceToXY(x, y) {
+    const dx = this.pos.x - x;
+    const dy = this.pos.y - y;
+    return Math.sqrt(dx * dx + dy * dy);
   }
 
   updateHeading() {
     const _self = this;
     const ANGLE = 90 * (Math.PI / 180); // constraint in radians
-    const DIST = 200;                   // within 200px of the current position
+    const DIST = 150;                   // within 200px of the current position
 
     _self.currentHeading.x = _self.pos.x + Math.cos(_self.rotation) * DIST;
     _self.currentHeading.y = _self.pos.y + Math.sin(_self.rotation) * DIST;
