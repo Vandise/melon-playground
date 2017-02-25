@@ -1,4 +1,5 @@
 import Player from './entities/player';
+import NPC from './entities/npc'
 import resources from './resources';
 
 class Game {
@@ -11,6 +12,7 @@ class Game {
       },
       entities: {
         Player,
+        NPC,
       },
       containers: {
 

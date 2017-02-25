@@ -10,6 +10,31 @@ export default [
     "type": "image"
   },
   {
+    "name": "dungeon_ruleset0",
+    "src": "/data/dungeon/rules/dungeon_ruleset0.tmx",
+    "type": "tmx"
+  },
+  {
+    "name": "dungeon_ruleset1",
+    "src": "/data/dungeon/rules/dungeon_ruleset1.tmx",
+    "type": "tmx"
+  },
+  {
+    "name": "dungeon_ruleset2",
+    "src": "/data/dungeon/rules/dungeon_ruleset2.tmx",
+    "type": "tmx"
+  },
+  {
+    "name": "dungeon_ruleset3",
+    "src": "/data/dungeon/rules/dungeon_ruleset3.tmx",
+    "type": "tmx"
+  },
+  {
+    "name": "dungeon_ruleset4",
+    "src": "/data/dungeon/rules/dungeon_ruleset4.tmx",
+    "type": "tmx"
+  },
+  {
     "name": "set_rules",
     "src": "/data/dungeon/set_rules.png",
     "type": "image"
@@ -38,5 +63,20 @@ export default [
     "name": "lab_welcome",
     "src": "/data/map/lab_welcome.tmx",
     "type": "tmx"
+  },
+  {
+    "name": "ben",
+    "src": "/data/sprites/ben.png",
+    "type": "image"
+  },
+  {
+    "name": "test1",
+    "src": "/data/sprites/test1.png",
+    "type": "image"
+  },
+  {
+    "name": "test2",
+    "src": "/data/sprites/test2.png",
+    "type": "image"
   }
 ];
