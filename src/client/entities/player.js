@@ -16,7 +16,10 @@ export default class Player extends me.Entity {
     settings.width = 96;
     settings.height = 96;
     settings.image = 'charactersheet';
+
     super(x,y, settings);
+    this.currentHeading = 'north';
+
     this.body.setVelocity(2.5, 2.5);
     this.body.setFriction(0.4,0.4);
     me.game.viewport.follow(this, me.game.viewport.AXIS.BOTH);
@@ -54,37 +57,47 @@ export default class Player extends me.Entity {
   }
 
   update(dt) {
-        if (me.input.isKeyPressed("left")) {
-            // update the entity velocity
-            this.body.vel.x -= this.body.accel.x * me.timer.tick;
-        } else if (me.input.isKeyPressed("right")) {
-            // update the entity velocity
-            this.body.vel.x += this.body.accel.x * me.timer.tick;
-        } else {
-            this.body.vel.x = 0;
-        }
-        if (me.input.isKeyPressed("up")) {
-            // update the entity velocity
-            this.body.vel.y -= this.body.accel.y * me.timer.tick;
-        } else if (me.input.isKeyPressed("down")) {
-            // update the entity velocity
-            this.body.vel.y += this.body.accel.y * me.timer.tick;
-        } else {
-            this.body.vel.y = 0;
-        }
+    if (me.input.isKeyPressed("left")) {
+      // update the entity velocity
+      this.body.vel.x -= this.body.accel.x * me.timer.tick;
+    } else if (me.input.isKeyPressed("right")) {
+      // update the entity velocity
+      this.body.vel.x += this.body.accel.x * me.timer.tick;
+    } else {
+      this.body.vel.x = 0;
+    }
+    if (me.input.isKeyPressed("up")) {
+      // update the entity velocity
+      this.body.vel.y -= this.body.accel.y * me.timer.tick;
+    } else if (me.input.isKeyPressed("down")) {
+      // update the entity velocity
+      this.body.vel.y += this.body.accel.y * me.timer.tick;
+    } else {
+      this.renderable.setAnimationFrame(this.getHeadingOffset(this.currentHeading));
+      this.body.vel.y = 0;
+    }
 
-        // apply physics to the body (this moves the entity)
-        this.body.update(dt);
+    // apply physics to the body (this moves the entity)
+    this.body.update(dt);
 
-        // handle collisions against other shapes
-        me.collision.check(this);
+    // handle collisions against other shapes
+    me.collision.check(this);
 
-        // check if we moved (an "idle" animation would definitely be cleaner)
-        if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
-            this._super(me.Entity, "update", [dt]);
-            return true;
-        }
-        return false;
+    // check if we moved (an "idle" animation would definitely be cleaner)
+    if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
+      this._super(me.Entity, "update", [dt]);
+      return true;
+    }
+    return false;
+  }
+
+  getHeadingOffset(heading) {
+    const offset = DIRECTIONS.indexOf(heading);
+    return offset > -1 ? offset : 0;
+  }
+
+  setCurrentHeading(heading) {
+    this.currentHeading = heading;
   }
 
 };
