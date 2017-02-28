@@ -70,6 +70,11 @@ export default [
     "type": "image"
   },
   {
+    "name": "charactersheet",
+    "src": "/data/sprites/charactersheet.png",
+    "type": "image"
+  },
+  {
     "name": "test1",
     "src": "/data/sprites/test1.png",
     "type": "image"
