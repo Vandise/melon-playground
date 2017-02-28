@@ -19,6 +19,8 @@ export default class Player extends me.Entity {
 
     super(x,y, settings);
     this.currentHeading = 'north';
+    this.isAnimating = false;
+    this.body.collisionType = me.collision.types.PLAYER_OBJECT;
 
     this.body.setVelocity(2.5, 2.5);
     this.body.setFriction(0.4,0.4);
@@ -67,47 +69,62 @@ export default class Player extends me.Entity {
       this.body.vel.y -= this.body.accel.y * me.timer.tick;
     }
     */
-
-    if (me.input.isKeyPressed("left")) {
-      if (!this.renderable.isCurrentAnimation("walk_west")) {
-        this.setCurrentHeading('west');
-        this.renderable.setCurrentAnimation("walk_west");
-      }
-      this.body.vel.x -= this.body.accel.x * me.timer.tick;
-    } else if (me.input.isKeyPressed("right")) {
-      if (!this.renderable.isCurrentAnimation("walk_east")) {
-        this.setCurrentHeading('east');
-        this.renderable.setCurrentAnimation("walk_east");
-      }
-      this.body.vel.x += this.body.accel.x * me.timer.tick;
-    } else if (me.input.isKeyPressed("up")) {
-      if (!this.renderable.isCurrentAnimation("walk_north")) {
-        this.setCurrentHeading('north');
-        this.renderable.setCurrentAnimation("walk_north");
-      }
-      this.body.vel.y -= this.body.accel.y * me.timer.tick;
-    } else if (me.input.isKeyPressed("down")) {
-      if (!this.renderable.isCurrentAnimation("walk_south")) {
-        this.setCurrentHeading('south');
-        this.renderable.setCurrentAnimation("walk_south");
-      }
-      this.body.vel.y += this.body.accel.y * me.timer.tick;
-    } else {
-      this.setStandingDirection();
-      this.body.vel.y = 0;
-      this.body.vel.x = 0;
+    if (me.input.isKeyPressed("space")) {
+      this.triggerAnimation('attack', true);
     }
-
+    if (!this.isAnimating) {
+      if (me.input.isKeyPressed("left")) {
+        if (!this.renderable.isCurrentAnimation("walk_west")) {
+          this.setCurrentHeading('west');
+          this.renderable.setCurrentAnimation("walk_west");
+        }
+        this.body.vel.x -= this.body.accel.x * me.timer.tick;
+      } else if (me.input.isKeyPressed("right")) {
+        if (!this.renderable.isCurrentAnimation("walk_east")) {
+          this.setCurrentHeading('east');
+          this.renderable.setCurrentAnimation("walk_east");
+        }
+        this.body.vel.x += this.body.accel.x * me.timer.tick;
+      } else if (me.input.isKeyPressed("up")) {
+        if (!this.renderable.isCurrentAnimation("walk_north")) {
+          this.setCurrentHeading('north');
+          this.renderable.setCurrentAnimation("walk_north");
+        }
+        this.body.vel.y -= this.body.accel.y * me.timer.tick;
+      } else if (me.input.isKeyPressed("down")) {
+        if (!this.renderable.isCurrentAnimation("walk_south")) {
+          this.setCurrentHeading('south');
+          this.renderable.setCurrentAnimation("walk_south");
+        }
+        this.body.vel.y += this.body.accel.y * me.timer.tick;
+      } else {
+        this.setStandingDirection();
+        this.body.vel.y = 0;
+        this.body.vel.x = 0;
+      }
+    }
     this.body.update(dt);
 
     // handle collisions against other shapes
     me.collision.check(this);
 
-    if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
+    if (this.body.vel.x !== 0 || this.body.vel.y !== 0 || this.isAnimating) {
       this._super(me.Entity, "update", [dt]);
       return true;
     }
     return false;
+  }
+
+  triggerAnimation(animationName, returnFirstFrame, isAnimating = false) {
+    const aniDirection = `${animationName}_${this.currentHeading}`;
+    if (!this.renderable.isCurrentAnimation(aniDirection)) {
+      this.isAnimating = true;
+      this.renderable.setCurrentAnimation(aniDirection, () => {
+        this.isAnimating = isAnimating;
+        return returnFirstFrame;
+      });
+    }
+    return true;
   }
 
   setStandingDirection(direction = null) {
