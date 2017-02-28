@@ -57,6 +57,16 @@ export default class Player extends me.Entity {
   }
 
   update(dt) {
+    /*
+    if (me.input.isKeyPressed("left") && me.input.isKeyPressed("up")) {
+      if (!this.renderable.isCurrentAnimation("walk_northwest")) {
+        this.setCurrentHeading('northwest');
+        this.renderable.setCurrentAnimation("walk_northwest");
+      }
+      this.body.vel.x -= this.body.accel.x * me.timer.tick;
+      this.body.vel.y -= this.body.accel.y * me.timer.tick;
+    }
+    */
 
     if (me.input.isKeyPressed("left")) {
       if (!this.renderable.isCurrentAnimation("walk_west")) {
@@ -88,13 +98,11 @@ export default class Player extends me.Entity {
       this.body.vel.x = 0;
     }
 
-    // apply physics to the body (this moves the entity)
     this.body.update(dt);
 
     // handle collisions against other shapes
     me.collision.check(this);
 
-    // check if we moved (an "idle" animation would definitely be cleaner)
     if (this.body.vel.x !== 0 || this.body.vel.y !== 0) {
       this._super(me.Entity, "update", [dt]);
       return true;
