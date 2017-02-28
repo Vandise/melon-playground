@@ -3,10 +3,10 @@ const FRAME_PADDING = 9;
 const DIRECTIONS = ['east', 'north', 'northeast', 'northwest', 'south', 'southeast', 'southwest', 'west'];
 const ANIMATIONS = {
   stand:  { frames: 8, framesPerDirection: false, speed: 0  },
-  walk:   { frames: 9, framesPerDirection: true,  speed: 10 },
-  attack: { frames: 9, framesPerDirection: true,  speed: 10 },
-  death:  { frames: 9, framesPerDirection: true,  speed: 10 },
-  hit:    { frames: 8, framesPerDirection: true,  speed: 10 }
+  walk:   { frames: 9, framesPerDirection: true,  speed: 250 },
+  attack: { frames: 9, framesPerDirection: true,  speed: 250 },
+  death:  { frames: 9, framesPerDirection: true,  speed: 250 },
+  hit:    { frames: 8, framesPerDirection: true,  speed: 250 }
 };
 
 
@@ -57,24 +57,35 @@ export default class Player extends me.Entity {
   }
 
   update(dt) {
+
     if (me.input.isKeyPressed("left")) {
-      // update the entity velocity
+      if (!this.renderable.isCurrentAnimation("walk_west")) {
+        this.setCurrentHeading('west');
+        this.renderable.setCurrentAnimation("walk_west");
+      }
       this.body.vel.x -= this.body.accel.x * me.timer.tick;
     } else if (me.input.isKeyPressed("right")) {
-      // update the entity velocity
+      if (!this.renderable.isCurrentAnimation("walk_east")) {
+        this.setCurrentHeading('east');
+        this.renderable.setCurrentAnimation("walk_east");
+      }
       this.body.vel.x += this.body.accel.x * me.timer.tick;
-    } else {
-      this.body.vel.x = 0;
-    }
-    if (me.input.isKeyPressed("up")) {
-      // update the entity velocity
+    } else if (me.input.isKeyPressed("up")) {
+      if (!this.renderable.isCurrentAnimation("walk_north")) {
+        this.setCurrentHeading('north');
+        this.renderable.setCurrentAnimation("walk_north");
+      }
       this.body.vel.y -= this.body.accel.y * me.timer.tick;
     } else if (me.input.isKeyPressed("down")) {
-      // update the entity velocity
+      if (!this.renderable.isCurrentAnimation("walk_south")) {
+        this.setCurrentHeading('south');
+        this.renderable.setCurrentAnimation("walk_south");
+      }
       this.body.vel.y += this.body.accel.y * me.timer.tick;
     } else {
-      this.renderable.setAnimationFrame(this.getHeadingOffset(this.currentHeading));
+      this.setStandingDirection();
       this.body.vel.y = 0;
+      this.body.vel.x = 0;
     }
 
     // apply physics to the body (this moves the entity)
@@ -89,6 +100,11 @@ export default class Player extends me.Entity {
       return true;
     }
     return false;
+  }
+
+  setStandingDirection(direction = null) {
+    this.renderable.setCurrentAnimation("stand");
+    this.renderable.setAnimationFrame(this.getHeadingOffset(direction ? direction : this.currentHeading));
   }
 
   getHeadingOffset(heading) {
