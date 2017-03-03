@@ -8,7 +8,7 @@ export default class NPC extends me.Entity {
 
   constructor(x, y, settings) {
     super(x, y, settings);
-
+    this.body.collisionType = me.collision.types.NPC_OBJECT;
     let currentFrame = 0;
     Object.keys(ANIMATIONS).forEach((animation, i) => {
       const config = ANIMATIONS[animation];
@@ -36,6 +36,14 @@ export default class NPC extends me.Entity {
 
     this.renderable.setCurrentAnimation(`idle_${settings.direction}`);
 
+  }
+
+  triggerDialog() {
+    if (this.dialog) {
+      console.log(this.dialog);
+    } else {
+      console.log('...');
+    }
   }
 
   update(dt) {

@@ -24,6 +24,9 @@ export default class Player extends me.Entity {
 
     this.body.setVelocity(2.5, 2.5);
     this.body.setFriction(0.4,0.4);
+
+    this.initializedNPC = null;
+
     me.game.viewport.follow(this, me.game.viewport.AXIS.BOTH);
     window.player = this;
 
@@ -73,6 +76,15 @@ export default class Player extends me.Entity {
       this.triggerAnimation('attack', true);
     }
     if (!this.isAnimating) {
+
+      if (me.input.isKeyPressed("talk")) {
+        if (this.initializedNPC) {
+          this.initializedNPC.triggerDialog();
+        } else {
+          console.log('Cannot do that right now.');
+        }
+      }
+
       if (me.input.isKeyPressed("left")) {
         if (!this.renderable.isCurrentAnimation("walk_west")) {
           this.setCurrentHeading('west');
@@ -105,6 +117,9 @@ export default class Player extends me.Entity {
     }
     this.body.update(dt);
 
+    // TODO: make a check to ensure the NPC registered is within talking range
+    //        unregister the NPC if not
+
     // handle collisions against other shapes
     me.collision.check(this);
 
@@ -116,6 +131,11 @@ export default class Player extends me.Entity {
   }
 
   onCollision(res, other) {
+    if (other.body.collisionType === me.collision.types.NPC_OBJECT
+          && this.initializedNPC != other) {
+      console.log("Press 'T' to talk to me!");
+      this.initializedNPC = other;
+    }
     return true;
   }
 
