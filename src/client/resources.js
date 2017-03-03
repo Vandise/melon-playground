@@ -60,6 +60,11 @@ export default [
     "type": "image"
   },
   {
+    "name": "lab_basic",
+    "src": "/data/map/lab_basic.tmx",
+    "type": "tmx"
+  },
+  {
     "name": "lab_welcome",
     "src": "/data/map/lab_welcome.tmx",
     "type": "tmx"
@@ -72,6 +77,11 @@ export default [
   {
     "name": "charactersheet",
     "src": "/data/sprites/charactersheet.png",
+    "type": "image"
+  },
+  {
+    "name": "npc-idle",
+    "src": "/data/sprites/npc-idle.png",
     "type": "image"
   },
   {

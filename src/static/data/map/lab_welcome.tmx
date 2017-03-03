@@ -49,15 +49,6 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Player">
-  <object id="9" name="Player" type="actor1m" gid="2" x="160" y="192" width="96" height="96">
-   <properties>
-    <property name="frameheight" type="int" value="96"/>
-    <property name="framewidth" type="int" value="96"/>
-   </properties>
-  </object>
-  <object id="16" gid="1" x="449" y="373.667" width="64" height="32"/>
- </objectgroup>
  <layer name="object" width="10" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,
@@ -90,16 +81,6 @@
 3,3,3,3,3,3,3,3,3,3
 </data>
  </layer>
- <objectgroup name="NPCS">
-  <object id="11" name="NPC" type="ben" gid="1" x="-13.6667" y="33.6667" width="60" height="106">
-   <properties>
-    <property name="frameheight" type="int" value="106"/>
-    <property name="framewidth" type="int" value="60"/>
-    <property name="image" value="ben"/>
-   </properties>
-  </object>
-  <object id="14" gid="1" x="483" y="277" width="64" height="32"/>
- </objectgroup>
  <objectgroup name="event">
   <object id="2" type="event" x="128" y="32" width="64" height="32">
    <properties>
@@ -110,5 +91,24 @@
     <property name="tooltip" value="Dev Lab - Basic Lessons"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="NPCS">
+  <object id="11" name="NPC" type="ben" gid="1" x="-13.6667" y="33.6667" width="60" height="106">
+   <properties>
+    <property name="frameheight" type="int" value="106"/>
+    <property name="framewidth" type="int" value="60"/>
+    <property name="image" value="ben"/>
+   </properties>
+  </object>
+  <object id="14" gid="1" x="483" y="277" width="64" height="32"/>
+ </objectgroup>
+ <objectgroup name="Player">
+  <object id="9" name="Player" type="actor1m" gid="2" x="160" y="192" width="96" height="96">
+   <properties>
+    <property name="frameheight" type="int" value="96"/>
+    <property name="framewidth" type="int" value="96"/>
+   </properties>
+  </object>
+  <object id="16" gid="1" x="449" y="373.667" width="64" height="32"/>
  </objectgroup>
 </map>

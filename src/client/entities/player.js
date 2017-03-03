@@ -115,6 +115,10 @@ export default class Player extends me.Entity {
     return false;
   }
 
+  onCollision(res, other) {
+    return true;
+  }
+
   triggerAnimation(animationName, returnFirstFrame, isAnimating = false) {
     const aniDirection = `${animationName}_${this.currentHeading}`;
     if (!this.renderable.isCurrentAnimation(aniDirection)) {

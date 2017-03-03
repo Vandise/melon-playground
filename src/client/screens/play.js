@@ -6,7 +6,7 @@ class PlayScreen extends me.ScreenObject {
   */
   onResetEvent() {
     //lab_welcome
-    me.levelDirector.loadLevel("lab_welcome");
+    me.levelDirector.loadLevel("lab_basic");
     me.game.world.addChild(new me.ColorLayer("background", "#000", 0), 0);
     me.input.bindKey(me.input.KEY.LEFT,  "left");
     me.input.bindKey(me.input.KEY.RIGHT, "right");
