@@ -14,6 +14,8 @@ class PlayScreen extends me.ScreenObject {
     me.input.bindKey(me.input.KEY.DOWN,  "down");
     me.input.bindKey(me.input.KEY.SPACE, "space");
     me.input.bindKey(me.input.KEY.T, "talk");
+    me.input.bindKey(me.input.KEY.GRAVE_ACCENT, "move");
+    me.input.bindPointer(me.input.KEY.GRAVE_ACCENT);
   }
 
   /**
