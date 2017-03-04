@@ -45,7 +45,7 @@ export default class Player extends me.Entity {
             currentFrame += FRAME_PADDING - (frames.length);
           }
           console.log(animation, direction, frames, currentFrame);
-          this.renderable.addAnimation(`${animation}_${direction}`, frames);
+          this.renderable.addAnimation(`${animation}_${direction}`, frames, config.speed);
         });
       } else {
         const frames = Array(config.frames).fill().map((_, i) => {
@@ -63,6 +63,12 @@ export default class Player extends me.Entity {
 
     this.renderable.setCurrentAnimation('stand');
 
+    me.input.registerPointerEvent('pointerdown', me.game.viewport, this.mouseCoodinates.bind(this));
+  }
+
+  mouseCoodinates(e) {
+    console.log(e);
+    // potentially use pointer events instead of key bindings
   }
 
   update(dt) {
