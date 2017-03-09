@@ -1,11 +1,12 @@
 import game from './client/game';
 import PlayScreen from './client/screens/play';
+import BattleScreen from './client/screens/battle';
 
 class Bootstrap {
 
   constructor() {
     // Initialize the video.
-    if (!me.video.init(600, 400, {wrapper : "screen", scale: 2.0})) {
+    if (!me.video.init(600, 400, {wrapper : "screen", scale: 3.0})) {
       alert("Your browser does not support HTML5 canvas.");
       return;
     }
@@ -32,6 +33,7 @@ class Bootstrap {
 
   loaded() {
     me.state.set(me.state.PLAY, new PlayScreen());
+    me.state.set(me.state.BATTLE, new BattleScreen());
 
     // add our player entity in the entity pool
     Object.keys(game.references.entities).forEach((name) => {

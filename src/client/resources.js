@@ -1,5 +1,10 @@
 export default [
   {
+    "name": "battle_cave",
+    "src": "/data/battle_bg/battle_cave.png",
+    "type": "image"
+  },
+  {
     "name": "door_left",
     "src": "/data/dungeon/door_left.png",
     "type": "image"

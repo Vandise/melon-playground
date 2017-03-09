@@ -1,3 +1,5 @@
+import ActionFactory from './npc/actionFactory';
+
 const FRAME_PADDING = 8;
 const DIRECTIONS = ['east', 'north', 'northeast', 'northwest', 'south', 'southeast', 'southwest', 'west'];
 const ANIMATIONS = {
@@ -8,6 +10,7 @@ export default class NPC extends me.Entity {
 
   constructor(x, y, settings) {
     super(x, y, settings);
+    this.configs = settings;
     this.body.collisionType = me.collision.types.NPC_OBJECT;
     let currentFrame = 0;
     Object.keys(ANIMATIONS).forEach((animation, i) => {
@@ -38,12 +41,8 @@ export default class NPC extends me.Entity {
 
   }
 
-  triggerDialog() {
-    if (this.dialog) {
-      console.log(this.dialog);
-    } else {
-      console.log('...');
-    }
+  triggerDefaultNPCAction(player) {
+    (new ActionFactory(this, player)).execute();
   }
 
   update(dt) {

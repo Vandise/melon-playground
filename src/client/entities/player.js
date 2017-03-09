@@ -21,6 +21,7 @@ export default class Player extends me.Entity {
     super(x,y, settings);
     this.currentHeading = 'north';
     this.isAnimating = false;
+    this.isInteracting = false;
     this.body.collisionType = me.collision.types.PLAYER_OBJECT;
 
     this.body.setVelocity(2.5, 2.5);
@@ -29,7 +30,9 @@ export default class Player extends me.Entity {
     this.initializedNPC = null;
     this.target = null;
 
-    me.game.viewport.follow(this, me.game.viewport.AXIS.BOTH);
+    if(!settings.battleMode) {
+      me.game.viewport.follow(this, me.game.viewport.AXIS.BOTH);
+    }
     window.player = this;
 
     let currentFrame = 0;
@@ -82,7 +85,7 @@ export default class Player extends me.Entity {
       const velX = Math.cos(angle);
       const velY = Math.sin(angle);
 
-      const LEVERAGE_RAD = 0.25;
+      const LEVERAGE_RAD = 0.17;
       const absVelX = Math.abs(velX);
     
       if (velX <= 0) {
@@ -179,9 +182,10 @@ export default class Player extends me.Entity {
     //        unregister the NPC if not
 
     if (!this.isAnimating) {
-      if (me.input.isKeyPressed("talk")) {
+      if (me.input.isKeyPressed("talk") && !this.isInteracting ) {
         if (this.initializedNPC) {
-          this.initializedNPC.triggerDialog();
+          this.isInteracting = true;
+          this.initializedNPC.triggerDefaultNPCAction(this);
         } else {
           console.log('Cannot do that right now.');
         }

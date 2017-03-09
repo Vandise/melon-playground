@@ -22,7 +22,7 @@ class PlayScreen extends me.ScreenObject {
   *  action to perform when leaving this screen (state change)
   */
   onDestroyEvent() {
-
+    // save player POS when nextstate is battle
   }
 };
 
