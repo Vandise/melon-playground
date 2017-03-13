@@ -13,7 +13,15 @@ export default class {
 
     const LEVERAGE_RAD = 0.17;
     const absVelX = Math.abs(velX);
-  
+
+    // idle if within range threshold
+    if (dx <= 2.5 && dx >= -2.5 && dy <= 2.5 && dy >= -2.5) {
+      this.player.setStandingDirection();
+      this.player.body.vel.y = 0;
+      this.player.body.vel.x = 0;
+      return false;
+    }
+
     if (velX <= 0) {
 
       // absolute south and west
@@ -89,6 +97,9 @@ export default class {
 
     this.player.body.vel.x = Math.cos(angle) * this.player.body.accel.x * me.timer.tick;
     this.player.body.vel.y = Math.sin(angle) * this.player.body.accel.y * me.timer.tick;
+
+    return true;
+
   }
 
 };
