@@ -140,7 +140,7 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="NPC">
+ <objectgroup name="NPC" offsetx="1" offsety="-1">
   <object id="23" name="NPC" type="white_mage" gid="1" x="18" y="148" width="64" height="32">
    <properties>
     <property name="default_action" value="talk"/>

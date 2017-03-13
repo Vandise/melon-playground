@@ -8,7 +8,7 @@ export default class {
   execute() {
     console.log(this.NPC.configs.dialog);
     setTimeout(() => {
-      this.player.isInteracting = false;
+      this.player.state.isInteracting = false;
     }, 1000);
   }
 

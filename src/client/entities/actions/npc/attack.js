@@ -8,7 +8,7 @@ export default class {
   execute() {
     console.log("I will kill you!");
     setTimeout(() => {
-      this.player.isInteracting = false;
+      this.player.state.isInteracting = false;
       me.state.change(me.state.BATTLE);
     }, 1000);
   }
