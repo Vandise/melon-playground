@@ -1,5 +1,6 @@
 import Player from './entities/player';
 import NPC from './entities/npc'
+import Scene from './entities/scene'
 import resources from './resources';
 
 class Game {
@@ -13,6 +14,7 @@ class Game {
       entities: {
         Player,
         NPC,
+        Scene
       },
       containers: {
 
@@ -22,6 +24,9 @@ class Game {
       screens: {},
       entities: {},
       containers: {},
+    };
+    this.collisionTypes = {
+      SCENE : me.collision.types.USER << 0,
     };
     this.data = {};
   }
