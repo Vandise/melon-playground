@@ -11,16 +11,17 @@ export default class Player extends me.Entity {
     settings.image = 'charactersheet';
 
     super(x,y, settings);
-    this.currentHeading = 'north';
-    this.isAnimating = false;
-    this.isInteracting = false;
-    this.body.collisionType = me.collision.types.PLAYER_OBJECT;
+    this.state = {
+      currentHeading: 'north',
+      isAnimating: false,
+      isInteracting: false,
+      initializedNPC: null,
+      target: null,
+    };
 
+    this.body.collisionType = me.collision.types.PLAYER_OBJECT;
     this.body.setVelocity(2.5, 2.5);
     this.body.setFriction(0.4,0.4);
-
-    this.initializedNPC = null;
-    this.target = null;
 
     this.actions = new actionFactory(this);
     this.actions.create('initialize').execute();
@@ -36,18 +37,18 @@ export default class Player extends me.Entity {
   }
 
   setTarget(e) {
-    this.target = {
+    this.state.target = {
       y: e.gameLocalY,
       x: e.gameLocalX
     };
   }
 
   triggerAnimation(animationName, returnFirstFrame, isAnimating = false) {
-    const aniDirection = `${animationName}_${this.currentHeading}`;
+    const aniDirection = `${animationName}_${this.state.currentHeading}`;
     if (!this.renderable.isCurrentAnimation(aniDirection)) {
-      this.isAnimating = true;
+      this.state.isAnimating = true;
       this.renderable.setCurrentAnimation(aniDirection, () => {
-        this.isAnimating = isAnimating;
+        this.state.isAnimating = isAnimating;
         return returnFirstFrame;
       });
     }
@@ -56,7 +57,7 @@ export default class Player extends me.Entity {
 
   setStandingDirection(direction = null) {
     this.renderable.setCurrentAnimation("stand");
-    this.renderable.setAnimationFrame(this.getHeadingOffset(direction ? direction : this.currentHeading));
+    this.renderable.setAnimationFrame(this.getHeadingOffset(direction ? direction : this.state.currentHeading));
   }
 
   getHeadingOffset(heading) {
@@ -65,12 +66,12 @@ export default class Player extends me.Entity {
   }
 
   setCurrentHeading(heading) {
-    this.currentHeading = heading;
+    this.state.currentHeading = heading;
   }
 
   update(dt) {
 
-    if (!this.isAnimating) {
+    if (!this.state.isAnimating) {
       if (me.input.isKeyPressed("move")) {
         this.actions.create('move').execute();
       } else {
@@ -84,7 +85,7 @@ export default class Player extends me.Entity {
 
     me.collision.check(this);
 
-    if (this.body.vel.x !== 0 || this.body.vel.y !== 0 || this.isAnimating) {
+    if (this.body.vel.x !== 0 || this.body.vel.y !== 0 || this.state.isAnimating) {
       this._super(me.Entity, "update", [dt]);
       return true;
     }
@@ -93,9 +94,9 @@ export default class Player extends me.Entity {
 
   onCollision(res, other) {
     if (other.body.collisionType === me.collision.types.NPC_OBJECT
-          && this.initializedNPC != other) {
+          && this.state.initializedNPC != other) {
       console.log("Press 'T' to talk to me!");
-      this.initializedNPC = other;
+      this.state.initializedNPC = other;
     }
     return true;
   }

@@ -5,8 +5,8 @@ export default class {
   }
 
   execute() {
-    const dy = this.player.target.y - this.player.pos.y;
-    const dx = this.player.target.x - this.player.pos.x;
+    const dy = this.player.state.target.y - this.player.pos.y;
+    const dx = this.player.state.target.x - this.player.pos.x;
     const angle = Math.atan2(dy, dx);
     const velX = Math.cos(angle);
     const velY = Math.sin(angle);
