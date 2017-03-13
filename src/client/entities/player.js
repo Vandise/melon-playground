@@ -42,28 +42,6 @@ export default class Player extends me.Entity {
     };
   }
 
-  characterActions() {
-
-    if (me.input.isKeyPressed("space")) {
-      this.triggerAnimation('attack', true);
-    }
-
-    // TODO: make a check to ensure the NPC registered is within talking range
-    //        unregister the NPC if not
-
-    if (!this.isAnimating) {
-      if (me.input.isKeyPressed("talk") && !this.isInteracting ) {
-        if (this.initializedNPC) {
-          this.isInteracting = true;
-          this.initializedNPC.triggerDefaultNPCAction(this);
-        } else {
-          console.log('Cannot do that right now.');
-        }
-      }
-    }
-
-  }
-
   triggerAnimation(animationName, returnFirstFrame, isAnimating = false) {
     const aniDirection = `${animationName}_${this.currentHeading}`;
     if (!this.renderable.isCurrentAnimation(aniDirection)) {
@@ -91,12 +69,17 @@ export default class Player extends me.Entity {
   }
 
   update(dt) {
-    this.characterActions();
-    if (!this.isAnimating && me.input.isKeyPressed("move")) {
-      this.actions.create('move').execute();
-    } else {
-      this.actions.create('idle').execute();
+
+    if (!this.isAnimating) {
+      if (me.input.isKeyPressed("move")) {
+        this.actions.create('move').execute();
+      } else {
+        this.actions.create('idle').execute();
+      }
     }
+    this.actions.create('talk').execute();
+    this.actions.create('attack').execute();
+
     this.body.update(dt);
 
     me.collision.check(this);

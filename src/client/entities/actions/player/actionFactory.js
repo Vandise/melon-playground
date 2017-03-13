@@ -1,11 +1,15 @@
 import move from './move';
 import idle from './idle';
 import initialize from './initialize';
+import attack from './attack';
+import talk from './talk';
 
 const ACTIONS = {
   move,
   idle,
   initialize,
+  attack,
+  talk,
 };
 
 export default class {
