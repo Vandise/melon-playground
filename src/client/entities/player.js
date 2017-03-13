@@ -21,7 +21,7 @@ export default class Player extends me.Entity {
     };
 
     this.body.collisionType = me.collision.types.PLAYER_OBJECT;
-    this.body.setCollisionMask(game.collisionTypes.SCENE);
+    this.body.setCollisionMask(game.collisionTypes.SCENE|me.collision.types.NPC_OBJECT);
     console.log(game.collisionTypes.SCENE);
     this.body.setVelocity(2.5, 2.5);
     this.body.setFriction(0.4,0.4);
@@ -100,6 +100,7 @@ export default class Player extends me.Entity {
           && this.state.initializedNPC != other) {
       console.log("Press 'T' to talk to me!");
       this.state.initializedNPC = other;
+      return true;
     }
     if (other.body.collisionType === game.collisionTypes.SCENE) {
       if (!this.state.isInteracting) {
