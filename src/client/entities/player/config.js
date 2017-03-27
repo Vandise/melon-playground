@@ -9,8 +9,8 @@ export const INITIAL_PLAYER_STATE = {
 
 /* movement */
 export const FRICTION = 0.4;
-export const BODY_VELOCITY_X = 0;
-export const BODY_VELOCITY_Y = 0;
+export const BODY_VELOCITY_X = 2.5;
+export const BODY_VELOCITY_Y = 2.5;
 export const TRAVEL_POINT_THRESHOLD = 2.5;
 
 /* animations */

@@ -1,9 +1,10 @@
+import Animateable from '../base/animateable';
+import Moveable from '../base/moveable';
 import game from '../../game';
 import actionFactory from './actions/actionFactory';
-import { DIRECTIONS } from '../shared/constants';
 import { INITIAL_PLAYER_STATE, BODY_VELOCITY_X, BODY_VELOCITY_Y, FRICTION } from './config';
 
-export default class Player extends me.Entity {
+export default class Player extends Moveable(Animateable) {
 
   constructor(x, y, settings) {
     settings.width = 96;
@@ -29,39 +30,6 @@ export default class Player extends me.Entity {
 
     this.renderable.setCurrentAnimation('stand');
     me.input.registerPointerEvent('pointermove', me.game.viewport, this.setTarget.bind(this));
-  }
-
-  setTarget(e) {
-    this.state.target = {
-      y: e.gameLocalY,
-      x: e.gameLocalX
-    };
-  }
-
-  triggerAnimation(animationName, returnFirstFrame, isAnimating = false) {
-    const aniDirection = `${animationName}_${this.state.currentHeading}`;
-    if (!this.renderable.isCurrentAnimation(aniDirection)) {
-      this.state.isAnimating = true;
-      this.renderable.setCurrentAnimation(aniDirection, () => {
-        this.state.isAnimating = isAnimating;
-        return returnFirstFrame;
-      });
-    }
-    return true;
-  }
-
-  setStandingDirection(direction = null) {
-    this.renderable.setCurrentAnimation("stand");
-    this.renderable.setAnimationFrame(this.getHeadingOffset(direction ? direction : this.state.currentHeading));
-  }
-
-  getHeadingOffset(heading) {
-    const offset = DIRECTIONS.indexOf(heading);
-    return offset > -1 ? offset : 0;
-  }
-
-  setCurrentHeading(heading) {
-    this.state.currentHeading = heading;
   }
 
   update(dt) {
