@@ -21,8 +21,7 @@ export default class Player extends me.Entity {
     };
 
     this.body.collisionType = me.collision.types.PLAYER_OBJECT;
-    this.body.setCollisionMask(game.collisionTypes.SCENE|me.collision.types.NPC_OBJECT);
-    console.log(game.collisionTypes.SCENE);
+    this.body.setCollisionMask(me.collision.types.WORLD_SHAPE|game.collisionTypes.SCENE|me.collision.types.NPC_OBJECT);
     this.body.setVelocity(2.5, 2.5);
     this.body.setFriction(0.4,0.4);
 
