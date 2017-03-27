@@ -140,7 +140,14 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="NPC" offsetx="1" offsety="-1">
+ <objectgroup name="Scene">
+  <object id="31" name="Scene" type="NPC_dialog" x="34" y="358.5" width="37.5" height="31.5">
+   <properties>
+    <property name="dialog" value="You triggered a scene"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="NPC" opacity="0.81" offsetx="1" offsety="-1">
   <object id="23" name="NPC" type="white_mage" gid="1" x="18" y="148" width="64" height="32">
    <properties>
     <property name="default_action" value="talk"/>
@@ -162,13 +169,6 @@
     <property name="height" type="int" value="30"/>
     <property name="image" value="npc-idle"/>
     <property name="width" type="int" value="30"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup name="Scene">
-  <object id="31" name="Scene" type="NPC_dialog" x="34" y="358.5" width="37.5" height="31.5">
-   <properties>
-    <property name="dialog" value="You triggered a scene"/>
    </properties>
   </object>
  </objectgroup>

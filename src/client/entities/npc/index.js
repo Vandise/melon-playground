@@ -1,4 +1,4 @@
-import ActionFactory from './actions/npc/actionFactory';
+import ActionFactory from './actions/actionFactory';
 
 const FRAME_PADDING = 8;
 const DIRECTIONS = ['east', 'north', 'northeast', 'northwest', 'south', 'southeast', 'southwest', 'west'];

@@ -1,3 +1,4 @@
+import { TRAVEL_POINT_THRESHOLD } from '../config';
 export default class {
 
   constructor(player) {
@@ -15,7 +16,7 @@ export default class {
     const absVelX = Math.abs(velX);
 
     // idle if within range threshold
-    if (dx <= 2.5 && dx >= -2.5 && dy <= 2.5 && dy >= -2.5) {
+    if (dx <= TRAVEL_POINT_THRESHOLD && dx >= -TRAVEL_POINT_THRESHOLD && dy <= TRAVEL_POINT_THRESHOLD && dy >= -TRAVEL_POINT_THRESHOLD) {
       this.player.setStandingDirection();
       this.player.body.vel.y = 0;
       this.player.body.vel.x = 0;

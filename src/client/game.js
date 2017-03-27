@@ -1,6 +1,6 @@
-import Player from './entities/player';
-import NPC from './entities/npc'
-import Scene from './entities/scene'
+import Player from './entities/player/';
+import NPC from './entities/npc/'
+import Scene from './entities/scene/'
 import resources from './resources';
 
 class Game {

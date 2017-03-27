@@ -1,8 +1,7 @@
-import game from '../game';
-import actionFactory from './actions/player/actionFactory';
-
-// TODO, create a config file to export shared constants (used in initialize)
-const DIRECTIONS = ['east', 'north', 'northeast', 'northwest', 'south', 'southeast', 'southwest', 'west'];
+import game from '../../game';
+import actionFactory from './actions/actionFactory';
+import { DIRECTIONS } from '../shared/constants';
+import { INITIAL_PLAYER_STATE, BODY_VELOCITY_X, BODY_VELOCITY_Y, FRICTION } from './config';
 
 export default class Player extends me.Entity {
 
@@ -12,18 +11,12 @@ export default class Player extends me.Entity {
     settings.image = 'charactersheet';
 
     super(x,y, settings);
-    this.state = {
-      currentHeading: 'north',
-      isAnimating: false,
-      isInteracting: false,
-      initializedNPC: null,
-      target: null,
-    };
+    this.state = INITIAL_PLAYER_STATE;
 
     this.body.collisionType = me.collision.types.PLAYER_OBJECT;
     this.body.setCollisionMask(me.collision.types.WORLD_SHAPE|game.collisionTypes.SCENE|me.collision.types.NPC_OBJECT);
-    this.body.setVelocity(2.5, 2.5);
-    this.body.setFriction(0.4,0.4);
+    this.body.setVelocity(BODY_VELOCITY_X, BODY_VELOCITY_Y);
+    this.body.setFriction(FRICTION, FRICTION);
 
     this.actions = new actionFactory(this);
     this.actions.create('initialize').execute();
