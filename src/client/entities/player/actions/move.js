@@ -16,6 +16,8 @@ export default class {
     const LEVERAGE_RAD = 0.17;
     const absVelX = Math.abs(velX);
 
+    this.player.state.moving = true;
+
     // idle if within range threshold
     if (dx <= TRAVEL_POINT_THRESHOLD && dx >= -TRAVEL_POINT_THRESHOLD && dy <= TRAVEL_POINT_THRESHOLD && dy >= -TRAVEL_POINT_THRESHOLD) {
       this.player.setStandingDirection();

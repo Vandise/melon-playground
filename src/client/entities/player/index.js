@@ -33,6 +33,7 @@ export default class Player extends Moveable(Animateable) {
   }
 
   update(dt) {
+
     if (!this.state.isAnimating) {
       if (me.input.isKeyPressed("move")) {
         this.actions.create('move').execute();
@@ -40,7 +41,7 @@ export default class Player extends Moveable(Animateable) {
         this.actions.create('idle').execute();
       }
     } else {
-      if (!this.withinMovementThreshold()) {
+      if (this.state.moving && !this.withinMovementThreshold()) {
         this.actions.create('move').execute();
       }
     }

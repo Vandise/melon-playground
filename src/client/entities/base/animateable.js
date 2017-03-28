@@ -12,12 +12,11 @@ export default class Animateable extends me.Entity {
     const aniDirection = `${animationName}_${this.state.currentHeading}`;
     if (!this.renderable.isCurrentAnimation(aniDirection)) {
       this.state.isAnimating = true;
-      this.renderable.setCurrentAnimation(aniDirection, () => {
+      this.renderable.setCurrentAnimation(aniDirection, (() => {
         this.state.isAnimating = isAnimating;
         return returnFirstFrame;
-      });
+      }).bind(this));
     }
-    return true;
   }
 
 };

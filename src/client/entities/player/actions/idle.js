@@ -6,6 +6,7 @@ export default class {
 
   execute() {
     //console.log('Player Idle');
+    this.player.state.moving = false;
     this.player.setStandingDirection();
     this.player.body.vel.y = 0;
     this.player.body.vel.x = 0;

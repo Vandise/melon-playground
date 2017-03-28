@@ -6,6 +6,7 @@ export const INITIAL_PLAYER_STATE = {
   initializedNPC: null,
   target: null,
   animationResolver: null,
+  moving: false,
 };
 
 /* movement */

@@ -37,6 +37,7 @@ export default class {
         this.player.renderable.addAnimation(animation, frames, config.speed);
       }
     });
+    this.player.renderable.addAnimation('dead', [197], 0);
   }
 
 };
