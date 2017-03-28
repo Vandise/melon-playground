@@ -5,6 +5,7 @@ class PlayScreen extends me.ScreenObject {
   *  action to perform on state change
   */
   onResetEvent() {
+    me.sys.pauseOnBlur = false;
     //lab_welcome
     me.levelDirector.loadLevel("lab_basic");
     me.game.world.addChild(new me.ColorLayer("background", "#000", 0), 0);
