@@ -1,9 +1,5 @@
-//
-// x: 1165
-// y: 395
-//
 import { DIRECTIONS } from '../shared/constants';
-import { TRAVEL_POINT_THRESHOLD } from '../shared/constants';
+import { TRAVEL_POINT_THRESHOLD, ANIMATION_RESOLVE_INTERVAL } from '../shared/constants';
 
 export default (Base) => class extends Base {
 
@@ -33,9 +29,18 @@ export default (Base) => class extends Base {
   }
 
   moveTo(gameLocalX, gameLocalY) {
-    console.log('moveTo', gameLocalX, gameLocalY);
     this.setTarget({ gameLocalX, gameLocalY });
-    return this.actions.create('move').execute();
+    this.state.isAnimating = true;
+    this.setAnimationResolver((resolve) => {
+      const timer = setInterval(() => {
+        if (this.withinMovementThreshold()) {
+          clearInterval(timer);
+          this.state.isAnimating = false;
+          resolve({ target: this.state.target, pos: this.pos });
+        }
+      }, ANIMATION_RESOLVE_INTERVAL);
+    });
+    this.actions.create('move').execute();
   }
 
   withinMovementThreshold() {

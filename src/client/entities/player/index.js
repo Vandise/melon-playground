@@ -34,10 +34,14 @@ export default class Player extends Moveable(Animateable) {
 
   update(dt) {
     if (!this.state.isAnimating) {
-      if (me.input.isKeyPressed("move") || !this.withinMovementThreshold()) {
+      if (me.input.isKeyPressed("move")) {
         this.actions.create('move').execute();
       } else {
         this.actions.create('idle').execute();
+      }
+    } else {
+      if (!this.withinMovementThreshold()) {
+        this.actions.create('move').execute();
       }
     }
 

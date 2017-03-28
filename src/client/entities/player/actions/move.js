@@ -99,8 +99,6 @@ export default class {
     this.player.body.vel.x = Math.cos(angle) * this.player.body.accel.x * me.timer.tick;
     this.player.body.vel.y = Math.sin(angle) * this.player.body.accel.y * me.timer.tick;
 
-    console.log(this.player.body.vel.x, this.player.body.vel.y);
-
   }
 
 };

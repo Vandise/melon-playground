@@ -4,6 +4,10 @@ export default class Animateable extends me.Entity {
     super(x,y, settings);
   }
 
+  setAnimationResolver(callback) {
+    this.state.animationResolver = new Promise(callback);
+  }
+
   triggerAnimation(animationName, returnFirstFrame, isAnimating = false) {
     const aniDirection = `${animationName}_${this.state.currentHeading}`;
     if (!this.renderable.isCurrentAnimation(aniDirection)) {
